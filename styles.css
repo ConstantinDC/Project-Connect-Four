@@ -1,0 +1,53 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background: #1e3a8a;
+    color: white;
+    gap: 16px;
+}
+
+.board {
+    display: grid;
+    gap: 6px;
+    background: #0f172a;
+    padding: 12px;
+    border-radius: 16px;
+}
+
+.board-row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+}
+
+.cell {
+    width: 64px;
+    height: 64px;
+    background: white;
+    border-radius: 50%;
+}
+
+h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.turn-indicator {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.game-over-message {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 16px 24px;
+    margin-top: 12px;
+    min-height: 24px;
+}
