@@ -1,20 +1,41 @@
 const board = document.querySelector('.board');
-const boardRows = Array.from(document.querySelectorAll('.board-row'));
-const cells = Array.from(document.querySelectorAll('.cell'));
 const turnIndicator = document.querySelector('.turn-indicator');
 const gameOverMessage = document.querySelector('.game-over-message');
 const title = document.querySelector('h1');
+
+const ROWS = 6;
+const COLS = 7;
 
 let currentPlayer = 1;
 let gameOver = false;
 
 let gameBoard = [];
-for (let row = 0; row < 6; row++) {
-    gameBoard[row] = [];
-    for (let col = 0; col < 7; col++) {
-        gameBoard[row][col] = cells[row * 7 + col];
+
+function createBoard() {
+    for (let row = 0; row < ROWS; row++) {
+        gameBoard[row] = [];
+    }
+
+    for (let row = 0; row < ROWS; row++) {
+        const boardRow = document.createElement('div');
+        boardRow.className = 'board-row';
+        
+        for (let col = 0; col < COLS; col++) {
+            const cell = document.createElement('div');
+            cell.className = 'cell';
+            cell.dataset.row = row;
+            cell.dataset.col = col;
+            boardRow.appendChild(cell);            
+            gameBoard[row][col] = cell;
+        }
+        
+        board.appendChild(boardRow);
     }
 }
+
+createBoard();
+
+const cells = Array.from(document.querySelectorAll('.cell'));
 
 function getCellColor(cell) {
     const color = window.getComputedStyle(cell).backgroundColor;
@@ -26,7 +47,7 @@ function countDirection(row, col, dr, dc, color) {
     let r = row + dr;
     let c = col + dc;
 
-    while (r >= 0 && r < 6 && c >= 0 && c < 7) {
+    while (r >= 0 && r < ROWS && c >= 0 && c < COLS) {
         const cell = gameBoard[r][c];
         if (getCellColor(cell) === color) {
             count++;
@@ -75,8 +96,8 @@ cells.forEach((cell, index) => {
             return;
         }
 
-        const col = index % 7;
-        for (let row = 5; row >= 0; row--) {
+        const col = index % COLS;
+        for (let row = ROWS - 1; row >= 0; row--) {
             const targetCell = gameBoard[row][col];
             if (!getCellColor(targetCell)) {
                 const placedColor = currentPlayer === 1 ? 'red' : 'yellow';
